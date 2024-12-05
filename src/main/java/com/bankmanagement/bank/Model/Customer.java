@@ -63,6 +63,10 @@ public class Customer {
         return Objects.hashCode(TCkn);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getUserName() {
         return userName;
     }

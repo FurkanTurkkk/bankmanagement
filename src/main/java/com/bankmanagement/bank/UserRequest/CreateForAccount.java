@@ -13,19 +13,17 @@ import java.util.Set;
 @Component
 public class CreateForAccount {
 
-    private final Customer customer;
+    private final Long customer_id;
     private final LocalDate creationDate;
     private final BigDecimal balance=BigDecimal.ZERO;
 
     public CreateForAccount() {
-        this.customer=null;
+        this.customer_id=0L;
         this.creationDate=LocalDate.now();
     }
 
-
-
-    public CreateForAccount(Customer customer) {
-        this.customer = customer;
+    public CreateForAccount(Long customerId) {
+        customer_id = customerId;
         this.creationDate=LocalDate.now();
     }
 
@@ -37,7 +35,7 @@ public class CreateForAccount {
         return balance;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomer_id() {
+        return customer_id;
     }
 }
