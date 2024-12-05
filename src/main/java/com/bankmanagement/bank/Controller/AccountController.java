@@ -26,11 +26,12 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<AccountDto> addAccount(@RequestBody CreateForAccount request){
-
-        return ResponseEntity.ok(new AccountDto(
-                request.getBalance(),request.getCreationDate(),
-                new HashSet<>()
-        ));
+        Customer customer=accountService.getAccountCustomerByCustomerId(request.getCustomer_id());
+        return ResponseEntity.ok(accountService.addAccount(new Account(
+                request.getBalance(),
+                request.getCreationDate(),
+                customer
+        )));
     }
 
     @GetMapping("/{account_id}")

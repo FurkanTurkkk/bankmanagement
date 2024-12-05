@@ -25,6 +25,9 @@ public class AccountService {
     }
 
 
+    public Customer getAccountCustomerByCustomerId(Long id){
+        return customerService.findCustomerById(id);
+    }
 
     public List<Account> findAllAccount(){
         return accountRepository.findAll();
@@ -35,9 +38,9 @@ public class AccountService {
         List<Account> accounts=findAllAccount();
         if(accounts.contains(account)){
             throw new AccountAlreadyExistException("Hesap Zaten Mevcut Eklenilemedi "+account);
-
         }
-        return converter.convertToAccountDto(accountRepository.save(account));
+        Account account1=accountRepository.save(account);
+        return converter.convertToAccountDto(account1);
     }
 
     public Account findAccountById(Long id){
