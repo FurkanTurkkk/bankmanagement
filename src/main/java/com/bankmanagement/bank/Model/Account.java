@@ -64,6 +64,10 @@ public class Account {
         return Objects.hashCode(accountNumber);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getAccountNumber() {
         return accountNumber;
     }

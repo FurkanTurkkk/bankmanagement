@@ -9,6 +9,7 @@ import com.bankmanagement.bank.UserRequest.CreateForAccount;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,17 +26,11 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<AccountDto> addAccount(@RequestBody CreateForAccount request){
-        Set<Account> accounts=accountService.findAccountByCustomerId(request.getCustomer_id());
-        Set<Customer> customers=accounts.stream().map(Account::getCustomer).collect(Collectors.toSet());
-        System.out.println("Customers: " + customers);
-        Customer customer=customers.stream().filter(t->t.getId()==2)
-                        .findFirst().orElseThrow(()->new CustomerNotFoundException("Customer Not Found"));
 
-        return ResponseEntity.ok(accountService.addAccount(new Account(
-                request.getBalance(),
-                request.getCreationDate(),
-                customer
-        )));
+        return ResponseEntity.ok(new AccountDto(
+                request.getBalance(),request.getCreationDate(),
+                new HashSet<>()
+        ));
     }
 
     @GetMapping("/{account_id}")

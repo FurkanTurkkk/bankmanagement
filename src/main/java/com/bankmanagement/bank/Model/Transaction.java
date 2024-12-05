@@ -38,6 +38,10 @@ public class Transaction {
         this.account = account;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public LocalDate getTransDate() {
         return transDate;
     }

@@ -10,7 +10,6 @@ import com.bankmanagement.bank.Repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -19,19 +18,12 @@ public class AccountService {
     private final AccountDtoConverter converter;
     private final CustomerService customerService;
 
-    public AccountService(AccountRepository accountRepository,
-                          AccountDtoConverter converter,
-                          CustomerService customerService) {
-
+    public AccountService(AccountRepository accountRepository, AccountDtoConverter converter, CustomerService customerService) {
         this.accountRepository = accountRepository;
         this.converter = converter;
         this.customerService = customerService;
     }
 
-    public Set<Account> findAccountByCustomerId(Long id){
-        Customer customer=customerService.findCustomerById(id);
-        return customer.getAccounts();
-    }
 
 
     public List<Account> findAllAccount(){
@@ -42,7 +34,7 @@ public class AccountService {
     public AccountDto addAccount(Account account){
         List<Account> accounts=findAllAccount();
         if(accounts.contains(account)){
-            throw new AccountAlreadyExistException("Hesap Zaten Mevcut Eklenilemedi "+" "+account);
+            throw new AccountAlreadyExistException("Hesap Zaten Mevcut Eklenilemedi "+account);
 
         }
         return converter.convertToAccountDto(accountRepository.save(account));
