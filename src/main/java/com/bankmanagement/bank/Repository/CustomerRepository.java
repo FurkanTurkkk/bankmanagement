@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
 
-    Optional<Customer> findByTCkn(String tc);
+    Optional<Customer> findByTckn(String tc);
+    void deleteByTckn(String tc);
 
 }

@@ -17,11 +17,15 @@ public class Transaction {
     private Long id;
 
     private final LocalDate transDate;
+
+    //Databasede isimle görünmesi için defaultta integer görünür
+    @Enumerated(EnumType.STRING)
     private final TransactionType transactionType;
+
     private final BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account",nullable = false)
+    @JoinColumn(name = "account_id",nullable = false)
     private Account account;
 
     //JPA için boş constructor

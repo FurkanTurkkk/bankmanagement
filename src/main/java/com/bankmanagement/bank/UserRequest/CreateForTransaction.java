@@ -11,27 +11,27 @@ import java.time.LocalDate;
 @Component
 public class CreateForTransaction {
 
-    private final Account account;
+    private final Long account_id;
     private final LocalDate transDate;
     private final TransactionType transactionType;
     private final BigDecimal amount;
 
     public CreateForTransaction() {
-        this.account = null;
+        this.account_id = null;
         this.transDate = LocalDate.now();
         this.transactionType = null;
         this.amount = null;
     }
 
-    public CreateForTransaction(Account account, TransactionType transactionType, BigDecimal amount) {
-        this.account = account;
+    public CreateForTransaction(Long account_id, TransactionType transactionType, BigDecimal amount) {
+        this.account_id = account_id;
         this.transDate = LocalDate.now();
         this.transactionType = transactionType;
         this.amount = amount;
     }
 
-    public Account getAccount() {
-        return account;
+    public Long getAccount_id() {
+        return account_id;
     }
 
     public LocalDate getTransDate() {

@@ -32,7 +32,7 @@ public class Account {
     private Customer customer;
 
 
-    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
     private Set<Transaction> transactions;
 
     public Account() {

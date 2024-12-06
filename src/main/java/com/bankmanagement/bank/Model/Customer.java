@@ -22,30 +22,30 @@ public class Customer {
     private final String firstName;
     private final String lastName;
     private final String eMailAddress;
-    private final String TCkn;
+    private final String tckn;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
     private Set<Account> accounts;
 
-    protected Customer() {
+    public Customer() {
         this.userName=null;
         this.password=null;
         this.firstName=null;
         this.lastName=null;
         this.eMailAddress=null;
-        this.TCkn=null;
+        this.tckn=null;
     }
 
     public Customer(String userName, String password,
                     String firstName, String lastName,
-                    String eMailAddress, String TCkn) {
+                    String eMailAddress, String tckn) {
 
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMailAddress = eMailAddress;
-        this.TCkn = TCkn;
+        this.tckn = tckn;
     }
 
 
@@ -55,12 +55,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(TCkn, customer.TCkn);
+        return Objects.equals(tckn, customer.tckn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(TCkn);
+        return Objects.hashCode(tckn);
     }
 
     public Long getId() {
@@ -87,8 +87,8 @@ public class Customer {
         return eMailAddress;
     }
 
-    public String getTCkn() {
-        return TCkn;
+    public String gettckn() {
+        return tckn;
     }
 
     public Set<Account> getAccounts() {

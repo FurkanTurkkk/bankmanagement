@@ -1,6 +1,7 @@
 package com.bankmanagement.bank.Controller;
 
 import com.bankmanagement.bank.Dto.AccountDto;
+import com.bankmanagement.bank.Dto.CustomerAccountDto;
 import com.bankmanagement.bank.Exception.CustomerNotFoundException;
 import com.bankmanagement.bank.Model.Account;
 import com.bankmanagement.bank.Model.Customer;
@@ -20,7 +21,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    public AccountController(AccountService accountService, CustomerController customerController) {
+    public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
 
@@ -35,8 +36,19 @@ public class AccountController {
     }
 
     @GetMapping("/{account_id}")
-    public ResponseEntity<AccountDto> getAccount(@PathVariable("account_id") Long id){
-        return ResponseEntity.ok(accountService.getAccountById(id));
+    public ResponseEntity<AccountDto> getAccountByAccountId(@PathVariable("account_id") Long id){
+        return ResponseEntity.ok(accountService.getAccountByAccountId(id));
+    }
+
+    @GetMapping("/tc/{customer_tc}")
+    public ResponseEntity<Set<CustomerAccountDto>> getAccountByCustomerTckn(@PathVariable("customer_tc") String tckn){
+        return ResponseEntity.ok(accountService.getAccountByCustomerTc(tckn));
+    }
+
+    @DeleteMapping("/{account_id}")
+    public ResponseEntity<String> deleteAccountById(@PathVariable("account_id") Long id){
+        accountService.deleteAccountById(id);
+        return ResponseEntity.ok("Hesap Silme İşlemi Başarıyla Tamamlandı");
     }
 }
 

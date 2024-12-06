@@ -1,6 +1,7 @@
 package com.bankmanagement.bank.Controller;
 
 import com.bankmanagement.bank.Dto.TransactionDto;
+import com.bankmanagement.bank.Model.Account;
 import com.bankmanagement.bank.Model.Transaction;
 import com.bankmanagement.bank.Service.TransactionService;
 import com.bankmanagement.bank.UserRequest.CreateForTransaction;
@@ -16,18 +17,20 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService, AccountController accountController) {
         this.transactionService = transactionService;
     }
 
     @PostMapping
     public ResponseEntity<TransactionDto> addTransaction(@RequestBody CreateForTransaction request){
+        Account account=transactionService.findAccountByAccountId(request.getAccount_id());
         Transaction transaction=new Transaction(
                 request.getTransDate(),
                 request.getTransactionType(),
                 request.getAmount(),
-                request.getAccount()
+                account
         );
-        return ResponseEntity.ok(transactionService.addTransaction(transaction));
+
+        return ResponseEntity.ok(transactionService.addTransaction(transaction,account));
     }
 }

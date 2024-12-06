@@ -37,4 +37,10 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAllCustomer());
     }
 
+    @DeleteMapping("/tc/{tckn}")
+    public ResponseEntity<String> deleteCustomerByTckn(@PathVariable("tckn") String tckn){
+        customerService.deleteCustomerByTckn(tckn);
+        return ResponseEntity.ok("Müşteri ve hesapları başarıyla silindi.");
+    }
+
 }
