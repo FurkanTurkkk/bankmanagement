@@ -1,32 +1,9 @@
 package com.bankmanagement.bank.ServiceTest;
 
-import com.bankmanagement.bank.Converter.AccountDtoConverter;
-import com.bankmanagement.bank.Converter.TransactionDtoConverter;
-import com.bankmanagement.bank.Dto.AccountDto;
-import com.bankmanagement.bank.Dto.TransactionDto;
-import com.bankmanagement.bank.Model.Account;
-import com.bankmanagement.bank.Model.Customer;
-import com.bankmanagement.bank.Model.Transaction;
-import com.bankmanagement.bank.Model.TransactionType;
-import com.bankmanagement.bank.Repository.AccountRepository;
-import com.bankmanagement.bank.Service.AccountService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 /*
 class AccountServiceTest {
 
