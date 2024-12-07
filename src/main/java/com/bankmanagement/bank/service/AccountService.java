@@ -5,12 +5,15 @@ import com.bankmanagement.bank.dto.AccountDto;
 import com.bankmanagement.bank.dto.CustomerAccountDto;
 import com.bankmanagement.bank.exception.AccountAlreadyExistException;
 import com.bankmanagement.bank.exception.AccountNotFoundException;
+import com.bankmanagement.bank.exception.NotEnoughMoneyException;
 import com.bankmanagement.bank.model.Account;
 import com.bankmanagement.bank.model.Customer;
+import com.bankmanagement.bank.model.Transaction;
 import com.bankmanagement.bank.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -77,6 +80,25 @@ public class AccountService {
         Account account=findAccountByAccountId(id);
         account.getCustomer().getAccounts().remove(account);
         accountRepository.deleteById(id);
+    }
+
+    public void upgradeAccountBalance(Account account,Transaction transaction){
+        BigDecimal balanceOfBeforeTransaction=account.getBalance();
+        BigDecimal balanceOfAfterTransaction;
+        if(transaction.getTransactionType().equals("EFT")){
+            if(account.getBalance().compareTo(transaction.getAmount()) < 0){
+                throw new NotEnoughMoneyException("Yetesiz Bakiye");
+            }else {
+                balanceOfAfterTransaction=balanceOfBeforeTransaction.subtract(transaction.getAmount());
+                Account registeredAccount=findAccountByAccountId(account.getId());
+                accountRepository.saveBalance(registeredAccount,balanceOfAfterTransaction);
+            }
+        }
+        else if(transaction.getTransactionType().equals("DEPOSIT")){
+            balanceOfAfterTransaction=balanceOfBeforeTransaction.add(transaction.getAmount());
+            Account registeredAccount=findAccountByAccountId(account.getId());
+            accountRepository.saveBalance(registeredAccount,balanceOfAfterTransaction);
+        }
     }
 
 }

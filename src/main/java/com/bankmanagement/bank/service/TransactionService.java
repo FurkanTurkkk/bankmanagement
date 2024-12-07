@@ -28,7 +28,10 @@ public class TransactionService {
     @Transactional
     public TransactionDto addTransaction(Transaction transaction, Account account){
         account.getTransactions().add(transaction);
+        accountService.upgradeAccountBalance(account,transaction);
         return converter.convertToTransactionDto(transactionRepository.save(transaction));
     }
+
+
 
 }
