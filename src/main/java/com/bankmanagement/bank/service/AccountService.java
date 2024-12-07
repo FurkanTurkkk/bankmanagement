@@ -91,13 +91,13 @@ public class AccountService {
             }else {
                 balanceOfAfterTransaction=balanceOfBeforeTransaction.subtract(transaction.getAmount());
                 Account registeredAccount=findAccountByAccountId(account.getId());
-                accountRepository.saveBalance(registeredAccount,balanceOfAfterTransaction);
+                accountRepository.save(account);
             }
         }
         else if(transaction.getTransactionType().equals("DEPOSIT")){
             balanceOfAfterTransaction=balanceOfBeforeTransaction.add(transaction.getAmount());
             Account registeredAccount=findAccountByAccountId(account.getId());
-            accountRepository.saveBalance(registeredAccount,balanceOfAfterTransaction);
+            accountRepository.save(account);
         }
     }
 
